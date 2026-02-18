@@ -160,23 +160,33 @@ The server never sees your plaintext. No cloud trust. No third-party dependency.
 
 ## // INSTALLATION
 
-### From PyPI
+### With pip (from GitHub)
 
 ```bash
-pip install termbackup
+pip install git+https://github.com/scorpiocodex/Termbackup.git
 ```
 
-### With pipx (Isolated)
+### With pipx (Isolated environment — recommended)
 
 ```bash
-pipx install termbackup
+pipx install git+https://github.com/scorpiocodex/Termbackup.git
 ```
 
-### From Source
+### Specific version / tag
+
+```bash
+# Install a pinned release tag
+pip install git+https://github.com/scorpiocodex/Termbackup.git@v6.0.0
+
+# Or with pipx
+pipx install git+https://github.com/scorpiocodex/Termbackup.git@v6.0.0
+```
+
+### From Source (development)
 
 ```bash
 git clone https://github.com/scorpiocodex/Termbackup.git
-cd termbackup
+cd Termbackup
 poetry install
 ```
 
@@ -902,7 +912,7 @@ The GitHub Actions CI pipeline runs on every push and PR:
 └─────────────────┴──────────────────────────────────────────────────────┘
 ```
 
-Releases are triggered by version tags (`v*`) and automatically publish to PyPI with a GitHub Release.
+Releases are triggered by version tags (`v*`) and published as GitHub Releases.
 
 <br>
 
