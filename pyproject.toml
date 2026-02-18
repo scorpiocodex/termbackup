@@ -2,7 +2,7 @@
 name = "termbackup"
 version = "6.0.0"
 description = "Zero-Trust Encrypted GitHub Backup CLI"
-authors = ["Gemini"]
+authors = ["ScorpioCodeX <scorpiocodex0@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/scorpiocodex/Termbackup"

@@ -29,7 +29,7 @@ If you discover a security vulnerability in TermBackup, **do not open a public i
 
 ### Reporting Process
 
-1. **Report privately** via email to the maintainer (see `pyproject.toml` for contact information)
+1. **Report privately** via email to **scorpiocodex0@gmail.com**
 2. **Include** in your report:
    - Clear description of the vulnerability
    - Steps to reproduce

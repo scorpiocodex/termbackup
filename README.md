@@ -175,7 +175,7 @@ pipx install termbackup
 ### From Source
 
 ```bash
-git clone https://github.com/your-user/termbackup.git
+git clone https://github.com/scorpiocodex/Termbackup.git
 cd termbackup
 poetry install
 ```
@@ -210,7 +210,7 @@ Creates `~/.termbackup/config.json`, prompts for your GitHub Personal Access Tok
 ```bash
 termbackup profile create my-project \
   --source /path/to/my-project \
-  --repo your-user/my-project-backup
+  --repo scorpiocodex/my-project-backup
 ```
 
 ### Step 3 -- Run a Backup
@@ -597,7 +597,7 @@ Profiles are named backup configurations stored at `~/.termbackup/profiles/<name
 # Create a profile
 termbackup profile create my-project \
   --source /path/to/my-project \
-  --repo your-user/my-project-backup \
+  --repo scorpiocodex/my-project-backup \
   --exclude "node_modules" \
   --exclude ".git" \
   --exclude "__pycache__" \
@@ -841,7 +841,7 @@ tests/                             3,700 lines of test code
 ### Setup
 
 ```bash
-git clone https://github.com/your-user/termbackup.git
+git clone https://github.com/scorpiocodex/Termbackup.git
 cd termbackup
 poetry install
 pre-commit install
@@ -919,7 +919,7 @@ Location: `~/.termbackup/config.json`
 ```json
 {
     "github_token": null,
-    "default_repo": "your-user/termbackup-storage",
+    "default_repo": "scorpiocodex/termbackup-storage",
     "encryption_version": 2,
     "signing_enabled": true
 }
@@ -935,7 +935,7 @@ Location: `~/.termbackup/profiles/<name>.json`
 {
     "name": "my-project",
     "source_dir": "/path/to/my-project",
-    "repo": "your-user/my-project-backup",
+    "repo": "scorpiocodex/my-project-backup",
     "backup_mode": "incremental",
     "max_backups": 10,
     "retention_days": 90,

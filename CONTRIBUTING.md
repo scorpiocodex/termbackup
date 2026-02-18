@@ -31,7 +31,7 @@ Thank you for your interest in contributing to TermBackup. This guide covers eve
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-user/termbackup.git
+git clone https://github.com/scorpiocodex/Termbackup.git
 cd termbackup
 
 # Install all dependencies (runtime + dev)
