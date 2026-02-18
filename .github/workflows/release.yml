@@ -1,0 +1,91 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# TermBackup Release Pipeline
+# ══════════════════════════════════════════════════════════════════════════════
+# Triggered by: Version tags (v*)
+# Jobs: Verify (test + lint + type-check + security) -> Build -> Publish
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  PYTHON_DEFAULT: "3.12"
+  POETRY_VIRTUALENVS_IN_PROJECT: true
+
+jobs:
+  # ── Pre-Release Verification ─────────────────────────────────────────────────
+  verify:
+    name: Pre-Release Verification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_DEFAULT }}
+
+      - name: Install Poetry
+        run: pip install poetry pip-audit
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Run full test suite
+        run: poetry run pytest --cov=termbackup -v
+
+      - name: Lint
+        run: poetry run ruff check termbackup/ tests/
+
+      - name: Format check
+        run: poetry run ruff format --check termbackup/ tests/
+
+      - name: Type check
+        run: poetry run mypy termbackup/
+
+      - name: Security lint
+        run: poetry run bandit -r termbackup/ -c pyproject.toml
+
+      - name: Dependency audit
+        run: poetry run pip-audit
+
+  # ── Build & Publish ──────────────────────────────────────────────────────────
+  publish:
+    name: Build & Publish
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_DEFAULT }}
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Build package (sdist + wheel)
+        run: poetry build
+
+      - name: Verify build artifacts
+        run: ls -la dist/
+
+      - name: Publish to PyPI (Trusted Publisher)
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: dist/*
+          fail_on_unmatched_files: true

@@ -1,0 +1,178 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# TermBackup CI Pipeline
+# ══════════════════════════════════════════════════════════════════════════════
+# Jobs: Lint, Type Check, Test (matrix), Security Audit, Security Lint
+# Runs on: Every push to main, every pull request targeting main
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_DEFAULT: "3.12"
+  POETRY_VIRTUALENVS_IN_PROJECT: true
+
+jobs:
+  # ── Lint & Format ────────────────────────────────────────────────────────────
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_DEFAULT }}
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Cache Poetry
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-lint-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: venv-lint-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Check formatting
+        run: poetry run ruff format --check termbackup/ tests/
+
+      - name: Lint with Ruff
+        run: poetry run ruff check termbackup/ tests/
+
+  # ── Type Check ───────────────────────────────────────────────────────────────
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_DEFAULT }}
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Cache Poetry
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-types-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: venv-types-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Type check with mypy
+        run: poetry run mypy termbackup/
+
+  # ── Test Matrix ──────────────────────────────────────────────────────────────
+  test:
+    name: Test // Python ${{ matrix.python-version }} // ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Cache Poetry
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-test-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: venv-test-${{ runner.os }}-py${{ matrix.python-version }}-
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Run tests with coverage
+        run: poetry run pytest --cov=termbackup --cov-report=term-missing --cov-report=xml -v
+
+      - name: Upload coverage artifact
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 30
+
+  # ── Security Audit (Dependency Vulnerabilities) ──────────────────────────────
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_DEFAULT }}
+
+      - name: Install Poetry
+        run: pip install poetry pip-audit
+
+      - name: Cache Poetry
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-audit-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: venv-audit-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Audit dependencies for CVEs
+        run: poetry run pip-audit
+
+  # ── Security Lint (Source Code Patterns) ─────────────────────────────────────
+  security-lint:
+    name: Security Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_DEFAULT }}
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Cache Poetry
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-bandit-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: venv-bandit-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Security lint with Bandit
+        run: poetry run bandit -r termbackup/ -c pyproject.toml

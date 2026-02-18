@@ -1,0 +1,108 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# TermBackup .gitignore
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── Claude Code (local IDE state) ─────────────────────────────────────────────
+.claude/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+sdist/
+wheels/
+*.whl
+
+# ── Virtual Environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+ENV/
+env/
+.virtualenv/
+
+# ── Environment Variables & Secrets ──────────────────────────────────────────
+.env
+.env.*
+.env.local
+.env.production
+*.pem
+*.key
+!termbackup/py.typed
+
+# ── IDE & Editors ────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*~
+.project
+.settings/
+.classpath
+*.sublime-project
+*.sublime-workspace
+.spyderproject
+.spyproject
+.ropeproject
+
+# ── Testing ──────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+.tox/
+.nox/
+
+# ── Type Checking ────────────────────────────────────────────────────────────
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# ── Linting & Formatting ────────────────────────────────────────────────────
+.ruff_cache/
+
+# ── Archives & Backups ──────────────────────────────────────────────────────
+*.tbk
+backups/
+
+# ── OS Generated ────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+nul
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Poetry ───────────────────────────────────────────────────────────────────
+poetry.lock
+
+# ── Temporary & Test Artifacts ───────────────────────────────────────────────
+*.tmp
+*.bak
+*.orig
+*.rej
+test_source/
+test_export.json
+
+# ── Documentation Build ─────────────────────────────────────────────────────
+docs/_build/
+site/
