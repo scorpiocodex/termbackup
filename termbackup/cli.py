@@ -625,6 +625,15 @@ def clean():
     ui.print_footer()
 
 
+@app.command("dashboard")
+def run_dashboard() -> None:
+    """Launch the live Nexus Holographic Dashboard."""
+    try:
+        from termbackup.ui_dashboard import launch_dashboard
+        launch_dashboard()
+    except KeyboardInterrupt:
+        ui.console.print("\n[dim]Dashboard Terminated.[/dim]")
+
 if __name__ == "__main__":
     app()
 

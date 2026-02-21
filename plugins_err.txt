@@ -1,0 +1,36 @@
+  ▸  [Compress Plugin] Zstandard high-ratio engine initialized.
+Failed to load plugin termbackup.bundled_plugins.termbackup_plugin_export: cannot import name 'get_ledger' from 'termbackup.ledger' (C:\Users\scorp\dev\python\Other\termbackup\termbackup\ledger.py)
+  ⚠  Failed to load plugin 
+'termbackup.bundled_plugins.termbackup_plugin_export': cannot import name 
+'get_ledger' from 'termbackup.ledger' 
+(C:\Users\scorp\dev\python\Other\termbackup\termbackup\ledger.py)
+Failed to load plugin termbackup.bundled_plugins.termbackup_plugin_stats: cannot import name 'get_ledger' from 'termbackup.ledger' (C:\Users\scorp\dev\python\Other\termbackup\termbackup\ledger.py)
+  ⚠  Failed to load plugin 
+'termbackup.bundled_plugins.termbackup_plugin_stats': cannot import name 
+'get_ledger' from 'termbackup.ledger' 
+(C:\Users\scorp\dev\python\Other\termbackup\termbackup\ledger.py)
+Failed to load plugin termbackup.bundled_plugins.termbackup_plugin_tui: cannot import name 'get_ledger' from 'termbackup.ledger' (C:\Users\scorp\dev\python\Other\termbackup\termbackup\ledger.py)
+  ⚠  Failed to load plugin 'termbackup.bundled_plugins.termbackup_plugin_tui': 
+cannot import name 'get_ledger' from 'termbackup.ledger' 
+(C:\Users\scorp\dev\python\Other\termbackup\termbackup\ledger.py)
+  ▸  Loaded 4 plugin(s).
+
+◈ TERMBACKUP v6.0.0
+───────────────────────────────────────────────────────────────────────────────
+  ⚙  Plugin System
+
+
+┌───────────────────────────────────────────────────────────┬───────────┐
+│ Plugin Name                                               │ Status    │
+├───────────────────────────────────────────────────────────┼───────────┤
+│ termbackup.bundled_plugins.termbackup_plugin_auto         │ Installed │
+│ termbackup.bundled_plugins.termbackup_plugin_compress     │ Installed │
+│ termbackup.bundled_plugins.termbackup_plugin_export       │ Installed │
+│ termbackup.bundled_plugins.termbackup_plugin_notify       │ Installed │
+│ termbackup.bundled_plugins.termbackup_plugin_stats        │ Installed │
+│ termbackup.bundled_plugins.termbackup_plugin_strict_audit │ Installed │
+│ termbackup.bundled_plugins.termbackup_plugin_tui          │ Installed │
+└───────────────────────────────────────────────────────────┴───────────┘
+
+───────────────────────────────────────────────────────────────────────────────
+

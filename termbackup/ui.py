@@ -121,23 +121,23 @@ class Icons:
 
 # -- Futuristic color theme ---------------------------------------------------
 class Theme:
-    PRIMARY = "#00d4ff"       # Neon cyan
-    SECONDARY = "#7c3aed"    # Deep purple
-    ACCENT = "#22d3ee"        # Light cyan
-    SUCCESS = "#10b981"       # Emerald
-    WARNING = "#f59e0b"       # Amber
-    ERROR = "#ef4444"         # Red
-    DIM = "#6b7280"           # Gray-500
-    TEXT = "#e5e7eb"          # Gray-200
-    HIGHLIGHT = "#f0abfc"     # Fuchsia-300
-    SURFACE = "#1e293b"       # Slate-800
-    GRADIENT_START = "#06b6d4"  # Cyan
-    GRADIENT_MID = "#8b5cf6"    # Purple
-    GRADIENT_END = "#ec4899"    # Pink
-    GOLD = "#fbbf24"          # Gold
-    STEEL = "#94a3b8"         # Steel
-    NEON_GREEN = "#34d399"    # Neon green
-    DEEP_BLUE = "#3b82f6"     # Deep blue
+    PRIMARY = "#00f0ff"       # Cyberpunk Cyan
+    SECONDARY = "#8a2be2"    # Purple Neon
+    ACCENT = "#ff00e5"        # Hot Magenta/Pink
+    SUCCESS = "#00ff9d"       # Matrix Green
+    WARNING = "#ffb300"       # Warning Gold
+    ERROR = "#ff003c"         # Critical Red
+    DIM = "#475569"           # Stealth Gray
+    TEXT = "#f8fafc"          # Stark White
+    HIGHLIGHT = "#d946ef"     # Fuchsia Bright
+    SURFACE = "#0f172a"       # Deep Space Blue
+    GRADIENT_START = "#00f0ff"  # Cyan
+    GRADIENT_MID = "#8a2be2"    # Purple
+    GRADIENT_END = "#ff00e5"    # Pink
+    GOLD = "#f5cb5c"          # Metallic Gold
+    STEEL = "#64748b"         # Armor Steel
+    NEON_GREEN = "#00ff9d"    # Neon Green
+    DEEP_BLUE = "#1e3a8a"     # Void Blue
 
 
 # Legacy color aliases (used by existing code)
@@ -154,11 +154,15 @@ ACCENT = "cyan"
 
 # -- Banner Art ----------------------------------------------------------------
 BANNER_ART = r"""
- ▀█▀ █▀▀ █▀█ █▀▄▀█ █▄▄ ▄▀█ █▀▀ █▄▀ █ █ █▀█
-  █  ██▄ █▀▄ █ ▀ █ █▄█ █▀█ █▄▄ █ █ █▄█ █▀▀
+████████╗███████╗██████╗ ███╗   ███╗██████╗  █████╗  ██████╗██╗  ██╗██╗   ██╗██████╗
+╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██║   ██║██╔══██╗
+   ██║   █████╗  ██████╔╝██╔████╔██║██████╔╝███████║██║     █████╔╝ ██║   ██║██████╔╝
+   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██╔══██╗██╔══██║██║     ██╔═██╗ ██║   ██║██╔═══╝
+   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██████╔╝██║  ██║╚██████╗██║  ██╗╚██████╔╝██║
+   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝
 """
 
-TAGLINE = "ZERO-TRUST ENCRYPTED GITHUB BACKUP SYSTEM"
+TAGLINE = "NEXUS ZERO-TRUST ENCRYPTED BACKUP ENGINE"
 
 MINI_BANNER = (
     f"[{Theme.PRIMARY}]◈[/{Theme.PRIMARY}] "
@@ -168,8 +172,12 @@ MINI_BANNER = (
 
 # Gradient colors for banner lines
 _GRADIENT = [
-    "#00d4ff",  # Neon cyan
-    "#8b5cf6",  # Deep purple
+    "#00f0ff",  # Cyberpunk Cyan
+    "#00d4ff",
+    "#3b82f6",  # Blue transition
+    "#8a2be2",  # Purple Neon
+    "#d946ef",
+    "#ff00e5",  # Pink
 ]
 
 
@@ -708,18 +716,19 @@ def print_help_screen() -> None:
 
     # ── Usage ──────────────────────────────────────────────────────────────
     usage_text = Text()
-    usage_text.append("  ◢ USAGE ◣  ", style=f"bold {Theme.PRIMARY}")
+    usage_text.append("  ▰▰▰ NEXUS UPLINK ESTABLISHED ▰▰▰\n", style=f"bold {Theme.ACCENT}")
+    usage_text.append("  [ USAGE PROTOCOL ]  ", style=f"bold {Theme.PRIMARY}")
     usage_text.append("termbackup ", style="bold white")
     usage_text.append("<command> ", style=f"bold {Theme.HIGHLIGHT}")
     usage_text.append("[options] [arguments]", style=Theme.DIM)
     console.print(usage_text)
-    console.print(Rule(style=Theme.DIM))
+    console.print(Rule(style=Theme.PRIMARY))
     console.print()
 
     # ── Helper to render a command group ───────────────────────────────────
     def _section(icon: str, title: str, rows: list[tuple[str, str, str]]) -> None:
         """Render one command group. rows = (command, args_hint, description)."""
-        console.print(f"  [{Theme.GOLD}]{icon}[/{Theme.GOLD}]  [bold {Theme.GOLD}]{title}[/bold {Theme.GOLD}]")
+        console.print(f"  [{Theme.PRIMARY}]◈ {icon}[/{Theme.PRIMARY}]  [bold {Theme.TEXT}]{title}[/bold {Theme.TEXT}]")
         tbl = Table(
             box=None,
             show_header=False,
@@ -737,7 +746,7 @@ def print_help_screen() -> None:
         for cmd, args, desc in rows:
             tbl.add_row(
                 f"[bold {Theme.PRIMARY}]{cmd}[/bold {Theme.PRIMARY}]",
-                f"[{Theme.ACCENT}]{args}[/{Theme.ACCENT}]",
+                f"[{Theme.HIGHLIGHT}]{args}[/{Theme.HIGHLIGHT}]",
                 f"[{Theme.TEXT}]{desc}[/{Theme.TEXT}]",
             )
         console.print(tbl)
