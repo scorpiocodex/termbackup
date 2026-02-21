@@ -35,7 +35,7 @@ httpx = {version = "^0.27.0", extras = ["http2"]}
 pathspec = "^0.12.0"
 keyring = ">=25.0.0"
 pydantic = "^2.6.0"
-argon2-cffi = "^23.1.0"
+argon2-cffi = "^25.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
