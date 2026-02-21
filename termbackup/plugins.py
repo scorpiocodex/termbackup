@@ -45,7 +45,16 @@ def trigger_hook(event: str, *args, **kwargs) -> list[Any]:
 def discover_plugins() -> list[str]:
     """Finds all installed plugins."""
     plugins = []
-    # Discover via namespace / prefix
+    
+    # Discover bundled native plugins
+    try:
+        from termbackup import bundled_plugins
+        for _, name, is_pkg in pkgutil.iter_modules(bundled_plugins.__path__):
+            plugins.append(f"termbackup.bundled_plugins.{name}")
+    except ImportError:
+        pass
+
+    # Discover external custom plugins via namespace / prefix
     for _, name, is_pkg in pkgutil.iter_modules():
         if name.startswith("termbackup_plugin_") or name.startswith("termbackup-plugin-"):
             plugins.append(name)
