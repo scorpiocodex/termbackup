@@ -37,7 +37,7 @@ jobs:
         run: pip install poetry
 
       - name: Cache Poetry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-lint-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
@@ -68,7 +68,7 @@ jobs:
         run: pip install poetry
 
       - name: Cache Poetry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-types-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
@@ -101,7 +101,7 @@ jobs:
         run: pip install poetry
 
       - name: Cache Poetry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-test-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
@@ -137,7 +137,7 @@ jobs:
         run: pip install poetry pip-audit
 
       - name: Cache Poetry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-audit-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
@@ -165,7 +165,7 @@ jobs:
         run: pip install poetry
 
       - name: Cache Poetry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-bandit-${{ runner.os }}-${{ env.PYTHON_DEFAULT }}-${{ hashFiles('poetry.lock') }}
