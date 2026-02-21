@@ -1,0 +1,19 @@
+# CODEOWNERS — automatic PR review assignments
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Each line maps a path pattern to one or more GitHub usernames / teams.
+# The last matching pattern takes precedence.
+
+# ── Default: all files ────────────────────────────────────────────────────────
+*                           @scorpiocodex
+
+# ── Cryptography (requires extra scrutiny) ────────────────────────────────────
+termbackup/crypto.py        @scorpiocodex
+termbackup/signing.py       @scorpiocodex
+termbackup/archive.py       @scorpiocodex
+
+# ── CI / CD & release pipelines ───────────────────────────────────────────────
+.github/                    @scorpiocodex
+
+# ── Security policy ───────────────────────────────────────────────────────────
+SECURITY.md                 @scorpiocodex
