@@ -1,19 +1,11 @@
 <div align="center">
 
-```
-╔══════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                              ║
-║   ████████╗███████╗██████╗ ███╗   ███╗██████╗  █████╗  ██████╗██╗  ██╗██╗   ██╗██████╗       ║
-║   ╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██║   ██║██╔══██╗      ║
-║      ██║   █████╗  ██████╔╝██╔████╔██║██████╔╝███████║██║     █████╔╝ ██║   ██║██████╔╝      ║
-║      ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██╔══██╗██╔══██║██║     ██╔═██╗ ██║   ██║██╔═══╝       ║
-║      ██║   ███████╗██║  ██║██║ ╚═╝ ██║██████╔╝██║  ██║╚██████╗██║  ██╗╚██████╔╝██║           ║
-║      ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝           ║
-║                                                                                              ║
-║                        [ ZERO-TRUST ENCRYPTED GITHUB BACKUP ENGINE ]                         ║
-║                                   v6.0.0  //  MIT License                                    ║
-║                                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════════════════════╝
+```text
+ ▀█▀ █▀▀ █▀█ █▀▄▀█ █▄▄ ▄▀█ █▀▀ █▄▀ █ █ █▀█
+  █  ██▄ █▀▄ █ ▀ █ █▄█ █▀█ █▄▄ █ █ █▄█ █▀▀
+
+    [ ZERO-TRUST ENCRYPTED GITHUB BACKUP ENGINE ]
+               v6.0.0  //  MIT License
 ```
 
 <br>
@@ -337,6 +329,23 @@ termbackup schedule-status <profile>         Check schedule status
 termbackup --version / -v                    Show version and system info
 termbackup --help                            Show all available commands
 ```
+
+### Plugin System & Expansion
+
+TermBackup natively supports dynamic extension plugins that run securely alongside the core cryptographic engine.
+
+```
+COMMAND                                      DESCRIPTION
+──────────────────────────────────────────── ─────────────────────────────────────────────
+termbackup plugins list                      List all active loaded plugins
+termbackup plugins stats                     [Stats Plugin] View advanced storage analytics
+```
+
+**Official Custom Plugins Available:**
+- `termbackup-plugin-stats`: Generates visual capacity planning charts and deduplication savings metrics.
+- `termbackup-plugin-notify`: Extends native webhooks with ultra-rich Discord and Slack multi-field embeds.
+- `termbackup-plugin-compress`: Connects advanced algorithms like Zstandard/Brotli to the archive engine.
+- `termbackup-plugin-auto`: Automates environment preparations (like SQL dumps) directly before compression.
 
 <br>
 

@@ -18,7 +18,7 @@ class TestMainApp:
     def test_no_command_shows_banner(self):
         result = runner.invoke(app, [])
         assert result.exit_code == 0
-        assert "termbackup --help" in result.output
+        assert "USAGE" in result.output
 
     def test_help(self):
         result = runner.invoke(app, ["--help"])

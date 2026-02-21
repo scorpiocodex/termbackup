@@ -154,33 +154,22 @@ ACCENT = "cyan"
 
 # -- Banner Art ----------------------------------------------------------------
 BANNER_ART = r"""
- _______ ______ _____  __  __  ____          _____ _  ___    _ _____
-|__   __|  ____|  __ \|  \/  ||  _ \   /\   / ____| |/ / |  | |  __ \
-   | |  | |__  | |__) | \  / || |_) | /  \ | |    | ' /| |  | | |__) |
-   | |  |  __| |  _  /| |\/| ||  _ < / /\ \| |    |  < | |  | |  ___/
-   | |  | |____| | \ \| |  | || |_) / ____ \ |____| . \| |__| | |
-   |_|  |______|_|  \_\_|  |_||____/_/    \_\_____|_|\_\\____/|_|
+ ▀█▀ █▀▀ █▀█ █▀▄▀█ █▄▄ ▄▀█ █▀▀ █▄▀ █ █ █▀█
+  █  ██▄ █▀▄ █ ▀ █ █▄█ █▀█ █▄▄ █ █ █▄█ █▀▀
 """
 
 TAGLINE = "ZERO-TRUST ENCRYPTED GITHUB BACKUP SYSTEM"
 
 MINI_BANNER = (
-    f"[{Theme.PRIMARY}]{Icons.SHIELD}[/{Theme.PRIMARY}] "
+    f"[{Theme.PRIMARY}]◈[/{Theme.PRIMARY}] "
     f"[bold white]TERM[/bold white][bold {Theme.HIGHLIGHT}]BACKUP[/bold {Theme.HIGHLIGHT}] "
     f"[{Theme.DIM}]v{__version__}[/{Theme.DIM}]"
 )
 
 # Gradient colors for banner lines
 _GRADIENT = [
-    "#06b6d4",  # Cyan
-    "#0ea5e9",
-    "#3b82f6",
-    "#6366f1",
-    "#8b5cf6",  # Purple
-    "#a855f7",
-    "#c084fc",
-    "#d946ef",
-    "#ec4899",  # Pink
+    "#00d4ff",  # Neon cyan
+    "#8b5cf6",  # Deep purple
 ]
 
 
@@ -196,28 +185,28 @@ def print_banner():
     console.print()
 
     # Tagline with gradient effect
-    tagline_text = Text(f"  {Icons.SHIELD}  {TAGLINE}")
-    tagline_text.stylize(Style(color=Theme.PRIMARY, bold=True))
+    tagline_text = Text(f"  ◈  {TAGLINE}")
+    tagline_text.stylize(Style(color=Theme.ACCENT, bold=True))
     console.print(tagline_text)
 
     # Version and encryption info
     console.print(
-        f"  [{Theme.DIM}]Version {__version__}[/{Theme.DIM}] "
-        f"[{Theme.DIM}]{Icons.DOT}[/{Theme.DIM}] "
-        f"[{Theme.ACCENT}]AES-256-GCM[/{Theme.ACCENT}] "
+        f"  [{Theme.DIM}]v{__version__}[/{Theme.DIM}] "
+        f"[{Theme.DIM}]│[/{Theme.DIM}] "
+        f"[{Theme.PRIMARY}]AES-256-GCM[/{Theme.PRIMARY}] "
         f"[{Theme.DIM}]+[/{Theme.DIM}] "
-        f"[{Theme.ACCENT}]Argon2id[/{Theme.ACCENT}] "
-        f"[{Theme.DIM}]{Icons.DOT}[/{Theme.DIM}] "
-        f"[{Theme.ACCENT}]Ed25519[/{Theme.ACCENT}]"
+        f"[{Theme.HIGHLIGHT}]Argon2id[/{Theme.HIGHLIGHT}] "
+        f"[{Theme.DIM}]│[/{Theme.DIM}] "
+        f"[{Theme.PRIMARY}]Ed25519[/{Theme.PRIMARY}]"
     )
 
     # System info line
     now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
     console.print(
         f"  [{Theme.DIM}]{now}[/{Theme.DIM}] "
-        f"[{Theme.DIM}]{Icons.DOT}[/{Theme.DIM}] "
-        f"[{Theme.DIM}]Python {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}[/{Theme.DIM}] "
-        f"[{Theme.DIM}]{Icons.DOT}[/{Theme.DIM}] "
+        f"[{Theme.DIM}]│[/{Theme.DIM}] "
+        f"[{Theme.DIM}]Python {sys.version_info.major}.{sys.version_info.minor}[/{Theme.DIM}] "
+        f"[{Theme.DIM}]│[/{Theme.DIM}] "
         f"[{Theme.DIM}]{sys.platform}[/{Theme.DIM}]"
     )
     console.print()
@@ -838,7 +827,11 @@ def print_help_screen() -> None:
     # ── Footer ──────────────────────────────────────────────────────────────
     console.print(Rule(style=Theme.DIM))
     footer = Text()
-    footer.append(f"  AES-256-GCM  {Icons.DOT}  Argon2id  {Icons.DOT}  Ed25519  {Icons.DOT}  HTTP/2  {Icons.DOT}  MIT License", style=Theme.DIM)
+    footer.append(
+        f"  AES-256-GCM  {Icons.DOT}  Argon2id  {Icons.DOT}  Ed25519  "
+        f"{Icons.DOT}  HTTP/2  {Icons.DOT}  MIT License",
+        style=Theme.DIM,
+    )
     console.print(footer)
     console.print(
         f"  [{Theme.DIM}]Run[/{Theme.DIM}] "

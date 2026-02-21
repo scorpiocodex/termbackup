@@ -9,6 +9,7 @@ from termbackup import restore as restore_module
 from termbackup import verify as verify_module
 from termbackup.errors import TermBackupError
 from termbackup.profile import app as profile_app
+from termbackup import plugins
 
 app = typer.Typer(
     name="termbackup",
@@ -20,6 +21,32 @@ app = typer.Typer(
     context_settings={"max_content_width": 120},
 )
 app.add_typer(profile_app)
+
+plugins_app = typer.Typer(
+    name="plugins",
+    help="Manage and list TermBackup plugins.",
+    rich_markup_mode="rich",
+)
+app.add_typer(plugins_app)
+
+@plugins_app.command("list")
+def list_plugins():
+    """List all available plugins."""
+    ui.print_header("Plugin System", icon=ui.Icons.GEAR)
+    all_plugins = plugins.discover_plugins()
+    if not all_plugins:
+        ui.print_empty("No plugins found. Install packages starting with 'termbackup-plugin-'.")
+        return
+
+    table = ui.create_table("Plugin Name", "Status")
+    for name in all_plugins:
+        table.add_row(name, f"[{ui.Theme.SUCCESS}]Installed[/{ui.Theme.SUCCESS}]")
+    ui.print_table(table)
+    ui.print_footer()
+
+# Load plugins on startup so they can register their hooks and commands.
+plugins.load_plugins()
+
 
 
 def _handle_error(e: Exception) -> None:
@@ -342,9 +369,15 @@ def status():
                     f"[{ui.Theme.DIM}]({type_str}, {info.username})[/{ui.Theme.DIM}]"
                 )
             elif info.status == ValidationStatus.NETWORK_ERROR:
-                token_status = f"[{ui.Theme.WARNING}]{masked}[/] [{ui.Theme.DIM}](not verified)[/{ui.Theme.DIM}]"
+                token_status = (
+                    f"[{ui.Theme.WARNING}]{masked}[/] "
+                    f"[{ui.Theme.DIM}](not verified)[/{ui.Theme.DIM}]"
+                )
             else:
-                token_status = f"[{ui.Theme.WARNING}]{masked}[/] [{ui.Theme.ERROR}]({info.status.value})[/{ui.Theme.ERROR}]"
+                token_status = (
+                    f"[{ui.Theme.WARNING}]{masked}[/] "
+                    f"[{ui.Theme.ERROR}]({info.status.value})[/{ui.Theme.ERROR}]"
+                )
         except (SystemExit, Exception):
             token_status = f"[{ui.Theme.ERROR}]Error reading token[/]"
 

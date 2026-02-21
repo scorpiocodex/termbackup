@@ -22,6 +22,10 @@ def run_backup(profile_name: str, password: str, dry_run: bool = False):
     ui.detail("Source", str(source_dir))
     ui.detail("Repository", repo_name)
     ui.console.print()
+    
+    # Trigger pre-backup plugin hooks
+    from termbackup import plugins
+    plugins.trigger_hook("pre_backup", profile_name=profile_name)
 
     if not source_dir.is_dir():
         ui.error(f"Source directory not found: {source_dir}")
@@ -146,6 +150,10 @@ def run_backup(profile_name: str, password: str, dry_run: bool = False):
                 )
             except Exception as e:
                 ui.warning(f"Webhook notification failed: {e}")
+
+        # Trigger post-backup plugin hooks
+        from termbackup import plugins
+        plugins.trigger_hook("post_backup", profile_name=profile_name, backup_id=backup_id)
 
         # Audit log
         audit.log_operation("backup", profile_name, "success", {
