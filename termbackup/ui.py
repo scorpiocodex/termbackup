@@ -703,23 +703,17 @@ def print_help_screen() -> None:
     console.print()
 
     # ── Header ─────────────────────────────────────────────────────────────
-    header = Text()
-    header.append(f"  {Icons.SHIELD}  ", style=f"bold {Theme.PRIMARY}")
-    header.append("TERM", style="bold white")
-    header.append("BACKUP", style=f"bold {Theme.HIGHLIGHT}")
-    header.append(f"  v{__version__}", style=Theme.DIM)
-    header.append("    ◈  Zero-Trust Encrypted GitHub Backup Engine", style=Theme.DIM)
-    console.print(header)
-    console.print(Rule(style=Theme.ACCENT))
+    print_banner()
     console.print()
 
     # ── Usage ──────────────────────────────────────────────────────────────
-    console.print(
-        f"  [bold {Theme.DIM}]USAGE[/bold {Theme.DIM}]   "
-        f"[bold {Theme.PRIMARY}]termbackup[/bold {Theme.PRIMARY}] "
-        f"[{Theme.ACCENT}]<command>[/{Theme.ACCENT}] "
-        f"[{Theme.DIM}][options] [arguments][/{Theme.DIM}]"
-    )
+    usage_text = Text()
+    usage_text.append("  ◢ USAGE ◣  ", style=f"bold {Theme.PRIMARY}")
+    usage_text.append("termbackup ", style="bold white")
+    usage_text.append("<command> ", style=f"bold {Theme.HIGHLIGHT}")
+    usage_text.append("[options] [arguments]", style=Theme.DIM)
+    console.print(usage_text)
+    console.print(Rule(style=Theme.DIM))
     console.print()
 
     # ── Helper to render a command group ───────────────────────────────────
